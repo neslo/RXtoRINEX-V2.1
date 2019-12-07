@@ -1,4 +1,4 @@
-##Introduction
+## Introduction
 
 RXtoRINEX project is aimed to provide tools:
  - To collect data from GPS / GNSS receivers embedded in mobile devices or connected to them through a serial port.
@@ -32,22 +32,22 @@ The current implementation has the following scope:
 
 Future versions to include support for other receivers would depend on availability of information from manufacturers. Any information on ICDs for other receivers (like SiRFIV-t, Broadcom, etc) is welcome.
 
-##Data Files
+## Data Files
 
 The data tools provided are used to process or generate the following file types.
 
 
-###RINEX observation
+### RINEX observation
 
 A RINEX observation file is a text file containing a header with data related to the file data acquisition, and sequences of epoch data. For each epoch the observables for each satellite tracked are included. See above reference on RINEX for a detailed description of this file format.
 
 
-###RINEX navigation
+### RINEX navigation
 
 A RINEX navigation file is a text file containing a header with data related to the file data acquisition, and satellite ephemeris obtained from the navigation message transmitted inside the navigation satellite signal. See above reference on RINEX for a detailed description of this file format.
 
 
-###OSP binary
+### OSP binary
 
 OSP binary are files containing OSP message data obtained from SiRF(TM) based GPS receivers. They can be embedded in the smartphone or connected to the computer or device through a serial port.
 
@@ -56,7 +56,7 @@ The file contains a sequence of OSP messages, where for each message they are st
 A detailed definition of OSP messages can be found in the document "SiRFstarIV(TM) One Socket Protocol Interface Control Document".
 
 
-###GP2 debug
+### GP2 debug
 
 GP2 debug are files containing receiver specific measurement data obtained in Android smartphones with embedded SiRFIV-T(TM) GPS receivers when DEBUGGING_FILES is set to 1 in the sirfgps.conf file.
 
@@ -78,16 +78,16 @@ Where:
 Note that in above format, data from "head" to "tail" is an OSP messages with values written in hexadecimal.
 
 
-###PKT messages
+### PKT messages
 
 Packet message files contain a sequence of binary OSP full messages. Each full message starts with the head (two bytes with values 0xA0 and 0xA2), following the payload length (a two byte integer), the payload bytes, a two bytes checksum, and finishing with the tail (two bytes with values 0xB0 and 0xB3). Between the tail of one message and the head of the following one it may be garbage data.
 
 Such files may be captured directly through the serial port where the receiver is connected using for example a terminal emulator.
 
 
-##C++ Classes
+## C++ Classes
 
-###RinexData
+### RinexData
 
 The RinexData class defines a data container for the RINEX file header records, epoch observables, and satellite navigation ephemeris.
 
@@ -104,40 +104,40 @@ Also it includes methods to read existing RINEX files, to store their data in th
 Methods are provided to set data filtering criteria (system, satellite, observables), and to filter data before printing.
 
 
-###RTKobservation
+### RTKobservation
 
 The RTKobservation class defines data to be used for storing and further printing of a RTK file header and the position solution data of each epoch.
 
 
-###GNSSdataFromOSP
+### GNSSdataFromOSP
 
 The GNSSdataFromOSP class defines data and methods used to acquire RINEX or RTK header and epoch data from a binary OSP file containing SiRF receiver messages.
 
 Such header and epoch data can be used to generate and print RINEX or RTK files.
 
 
-###OSPMessage
+### OSPMessage
 
 The OSPMessage class provides resources to perform data acquisition from OSP message payloads. Note that the payload is a part of the OSP message described in the SiRF ICD.
 
 The class allows a cursor based, buffered acquisition process from the OSP file and include methods: to fill the buffer with messages read from a OSP binary file, to get values for the message data types taking into account sign and bit and byte ordering in the source, and skip unused data from the buffer.
 
 
-###ArgParser
+### ArgParser
 
 The ArgParser class defines a data container for options and operators passed to a program as arguments in the command line, and it provides methods to manage them.
 
 
-###Logger
+### Logger
 
 The Logger class allows recording of tagged messages in a logging file. The class defines a hierarchy of log levels (SEVERE, WARNING, INFO, CONFIG, FINE, FINER or FINEST) and provides methods to set the current log level and log messages at each level.
 
 Only those messages having level from SEVERE to the current level stated are actually recorded in the log file.
 
 
-##Data Tools
+## Data Tools
 
-###RXtoOSP command
+### RXtoOSP command
 
 This command line program can be used to capture OSP message data from a SiRF receiver connected to the computer / device serial port and to store them in an OSP binary file.
 
@@ -155,7 +155,7 @@ Data acquisition can be controlled using options to:
 Note: use of this command requires a GPS receiver state compatible with data being requested: transmitting serial data at the bit rate, length and parity expected, and in OSP format. See SynchroRX command below for details.
 
 
-###GP2toOSP command
+### GP2toOSP command
 
 This command line program is used to translate data captured in GP2 debug files to OSP message files.
 
@@ -168,7 +168,7 @@ Data translation can be controlled using options to:
  - State the list of “wanted” messages MIDs. The rest of messages will be ignored
 
 
-###OSPtoTXT
+### OSPtoTXT
 
 This command line program is used to print contents of OSP files into readable format. Printed data are sent to the stdout.
 
@@ -178,7 +178,7 @@ The output contains descriptive relevant data from each OSP message:
  - Payload bytes in hexadecimal, for MID 255
 
 
-###OSPtoRINEX
+### OSPtoRINEX
 
 This command line program is used to generate RINEX files from an OSP data file containing SiRF receiver message data.
 
@@ -195,7 +195,7 @@ The generation of RINEX files can be controlled using options to:
  - State the selected systems to print in addition to GPS (GLONASS and or SBAS)
 
 
-###OSPtoRTK
+### OSPtoRTK
 
 This command line program is used to generate a RTK file with positioning data extracted from an OSP data file containing SiRF IV receiver messages.
 
@@ -205,7 +205,7 @@ The generation of RTK files can be controlled using options to:
  - Set the minimum number of satellites in a fix to include its positioning data
 
 
-###SynchroRX
+### SynchroRX
 
 This command line program can be used to synchronize SiRF based receiver and computer to allow communication between both.
 
@@ -236,14 +236,14 @@ The synchronization process can be controlled using options to:
  - Set the receiver protocol to NMEA or OSP
 
 
-###PacketToOSP
+### PacketToOSP
 
 This command line program is used to extract from an input binary file containing SiRF receiver message packets their payload data, and store them into an OSP binary file. Such input files can be obtained from the receiver data stream using system tools, or application specific ones.
 
 The command extracts and verifies message packets, and writes the payload data of the correct ones to the OSP binary file.
 
 
-###RINEXtoRINEX
+### RINEXtoRINEX
 
 This command line program is used to generate a RINEX file from data contained in another RINEX file.
 
@@ -258,7 +258,7 @@ To filter input observation data the user can define:
 To filter input navigation data the user can define similar criteria, except system / observable.
 
 
-###RINEXtoCSV
+### RINEXtoCSV
 
 This command line program is used to generate a CSV or TXT file from data contained in a given observation or navigation RINEX file.
 
@@ -272,11 +272,11 @@ The command allows user to filter input file data to be converted. To do that, u
  - The list of system / satellites to be included
 
 
-##Test files
+## Test files
 
 The directory ./Data contains sample files obtained with the above described tools.
 
-###GStarIV
+### GStarIV
 
 Contains GPS data acquired with an external GlobalSat G-Star IV model BU-353S4 (SiRFIV-e receiver). Each subdirectory inside includes data files from a survey:
  - The OSP file acquired with RXtoOSP in a given point.
@@ -287,7 +287,7 @@ Contains GPS data acquired with an external GlobalSat G-Star IV model BU-353S4 (
 
 In addition there are files with analysis data from teqc and from PRSolve (part of the GPS ToolKit).
 
-###SamsungGlxyS2
+### SamsungGlxyS2
 
 Contains GPS data acquired with a Samsung Galaxy S2 (GT-I9100) from its  embedded receiver (a SiRFIV-t). Each subdirectory inside includes data for different surveys, including:
  - The gp2 file downloaded from the smartphone
@@ -297,11 +297,11 @@ Contains GPS data acquired with a Samsung Galaxy S2 (GT-I9100) from its  embedde
  - RTK files generated with OSPtoRTK
  - LogFile.txt from executions of above commands
 
-###SiRFV based receiver
+### SiRFV based receiver
 
 As per GStarIV, but using data captured by a SiRFV based receiver.
 
-###Ubuntu
+### Ubuntu
 
 As per GStarIV, but using data captured using a PC running Ubuntu.
 
