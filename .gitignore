@@ -17,6 +17,13 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#Unix object files
+*.o
+
+
+# Nano temp files
+*.save*
+
 # =========================
 # Operating System Files
 # =========================

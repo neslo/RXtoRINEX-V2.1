@@ -3,6 +3,7 @@
  *
  */
 #include <stdio.h>
+#include <cmath> // pow has been moved to cmath from C++11
 
 #include "GNSSdataFromOSP.h"
 //from CommonClasses
